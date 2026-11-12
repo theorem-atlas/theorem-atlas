@@ -27,7 +27,7 @@ jobs:
         run: |
           set -o pipefail
           result=0
-          for file in GraphPruning GrowthReduction; do
+          for file in GraphPruning GrowthReduction StrongGrowthReduction; do
             timeout --kill-after=10s 300s docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges --pids-limit 128 --memory 6g --cpus 2 --tmpfs /tmp:rw,nosuid,nodev,size=256m --mount type=bind,src="$PWD/research/erdos92-claude/$file.lean",dst=/work/Candidate.lean,readonly atlas-erdos92 lake env lean /work/Candidate.lean 2>&1 | tee "evidence/$file.log" || result=1
           done
           exit "$result"
