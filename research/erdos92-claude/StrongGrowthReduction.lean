@@ -8,8 +8,8 @@ open Filter
 `f n ≤ n ^ (c / log (log n))` cannot hold eventually, for any real `c`. -/
 theorem not_eventually_le_rpow_div_loglog
     (f : ℕ → ℝ) {δ c : ℝ} (hδ : 0 < δ)
-    (hfreq : ∃ᶠ n in atTop, (n : ℝ) ^ δ ≤ f n)
-    (hev : ∀ᶠ n in atTop, f n ≤ (n : ℝ) ^ (c / Real.log (Real.log (n : ℝ)))) :
+    (hfreq : ∃ᶠ n : ℕ in atTop, (n : ℝ) ^ δ ≤ f n)
+    (hev : ∀ᶠ n : ℕ in atTop, f n ≤ (n : ℝ) ^ (c / Real.log (Real.log (n : ℝ)))) :
     False := by
   have hll : Tendsto (fun n : ℕ => Real.log (Real.log (n : ℝ))) atTop atTop :=
     Real.tendsto_log_atTop.comp (Real.tendsto_log_atTop.comp tendsto_natCast_atTop_atTop)
@@ -39,7 +39,7 @@ theorem not_eventually_le_rpow_div_loglog
 theorem not_eventually_le_rpow_div_loglog_nat
     (f : ℕ → ℕ) {δ c : ℝ} (hδ : 0 < δ)
     (hlarge : ∀ N : ℕ, ∃ n ≥ N, (n : ℝ) ^ δ ≤ (f n : ℝ))
-    (hev : ∀ᶠ n in atTop, (f n : ℝ) ≤ (n : ℝ) ^ (c / Real.log (Real.log (n : ℝ)))) :
+    (hev : ∀ᶠ n : ℕ in atTop, (f n : ℝ) ≤ (n : ℝ) ^ (c / Real.log (Real.log (n : ℝ)))) :
     False :=
   not_eventually_le_rpow_div_loglog (fun n => (f n : ℝ)) hδ
     (Filter.frequently_atTop.mpr hlarge) hev
